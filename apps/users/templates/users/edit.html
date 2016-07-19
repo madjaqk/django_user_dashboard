@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>User Profile</title>
+	</head>
+	<body>
+		<p><a href="{% url 'log_off' %}">Log off</a></p>
+		{% if messages %}
+			<ul>
+				{% for message in messages %}
+					<li>{{message}}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h3>Edit Profile</h3>
+		<form action="{% url 'update' user.id %}" method="post">
+			{% csrf_token %}
+			<p>E-mail address: <input type="text" name="email" value="{{user.email}}"></p>
+			<p>First name: <input type="text" name="first_name" value="{{user.first_name}}"></p>
+			<p>Last name: <input type="text" name="last_name" value="{{user.last_name}}"></p>
+			{% if curr_user.admin %}
+				<p>Admin? 
+					<select name="admin">
+						<option value="True" {% if user.admin %}selected{% endif %} >Yes</option>
+						<option value="False" {% if not user.admin %}selected{% endif %}>No</option>
+					</select>
+				</p>
+			{% endif %}
+			{% if user == curr_user %}
+				<p>Password: <input type="password" name="password"></p>
+				<p>Confirm Password: <input type="password" name="confirm_password"></p>
+			{% endif %}
+			<p>Description:</p> 
+			<p><textarea name="description" rows=4 cols=40>{{user.description}}</textarea></p>
+			<input type="submit" value="Update">
+		</form>
+
+		<p><a href="{% url 'show' user.id %}">Back</a></p>
+	</body>
+</html>

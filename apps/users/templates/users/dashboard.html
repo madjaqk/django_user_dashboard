@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Dashboard</title>
+	</head>
+	<body>
+		{% load humanize %}
+		<p><a href="{% url 'log_off' %}">Log off</a></p>
+		<h1>Hello, {{curr_user.name}}!</h1>
+		<table>
+			<tr><th>ID</th>
+				<th>Name</th>
+				<th>E-mail</th>
+				<th>Created At</th>
+				<th>User Level</th>
+				<th>Actions</th>
+			</tr>
+			{% for user in users %}
+				<tr>
+					<td>{{user.id}}</td>
+					<td><a href="{% url 'show' user.id %}">{{user.name}}</a> </td>
+					<td>{{user.email}}</td>
+					<td>{{user.created_at|naturaltime}}</td>
+					<td> {% if user.admin %}Admin{% else %}Normal{% endif %}</td>
+					<td>Actions tk</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>

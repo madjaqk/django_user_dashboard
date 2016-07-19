@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>User Dashboard -- Login</title>
+		<style type="text/css">
+			div.login{
+				border: 2px solid blue;
+				border-radius: 25px;
+				vertical-align: top;
+				margin: 25px;
+				padding: 10px;
+				display: inline-block;
+			}
+
+			div.login h3{
+				margin: 0px;
+				padding: 0px;
+			}
+		</style>
+	</head>
+	<body>
+			{% if messages %}
+				<ul>
+					{% for message in messages %}
+						<li>{{message}}</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		<div class="login">
+			<h3>Log In</h3>
+			<form action="{% url 'login' %}" method="post">
+				{% csrf_token %}
+				{{ login_form.as_p }}
+				<input type="submit" value="Log In">
+			</form>
+		</div>
+		<div class="login">
+			<h3>Register</h3>
+			<form action="{% url 'register' %}" method="post">
+				{% csrf_token %}
+				{{ reg_form.as_p }}
+				<input type="submit" value="Register">
+			</form>
+		</div>
+	</body>
+</html>

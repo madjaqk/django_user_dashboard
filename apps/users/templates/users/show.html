@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>User Profile</title>
+	</head>
+	<body>
+		<p><a href="{% url 'log_off' %}">Log off</a></p>
+		<h3>{{user.name}}</h3>
+		<p>Registered on: {{user.created_at|date}}</p>
+		<p>User ID: {{user.id}}</p>
+		<p>E-mail address: {{user.email}}</p>
+		{% if user.description %}
+			<p>Description: {{user.description}}</p>
+		{% endif %}
+
+		{% if curr_user.admin or curr_user == user %}
+			<p><a href="{% url 'edit' user.id %}">Edit</a></p>
+		{% endif %}
+		<p><a href="{% url 'dashboard' %}">Back</a></p>
+	</body>
+</html>
